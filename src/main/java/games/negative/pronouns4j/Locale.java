@@ -13,6 +13,7 @@ import java.util.List;
 public enum Locale {
 
     PLAYER_NOT_FOUND("&cPlayer not found!"),
+    NO_PERMISSION("&cYou do not have permission to use this command!"),
     TITLE_HELP(
             "&8[ &3Pronouns4&bJ &8]",
             "&e/pronouns &7- &fDisplays this help menu",

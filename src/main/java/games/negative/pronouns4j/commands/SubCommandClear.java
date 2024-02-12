@@ -22,21 +22,24 @@ public class SubCommandClear extends Command {
     public void execute(@NotNull Context context) {
         Player senderPlayer = getPlayerSender(context);
         if (senderPlayer == null) {
-            return;
+            return; // Exit if the sender is not a player
         }
 
         if (context.args().length == 0) {
-            clearPronouns(senderPlayer, (Player) context.sender());
+            // If no arguments provided, clear pronouns for the sender
+            clearPronouns(senderPlayer, senderPlayer);
         } else {
             Player targetPlayer = Bukkit.getPlayer(context.args()[0]);
             if (targetPlayer == null) {
                 Locale.PLAYER_NOT_FOUND.send(senderPlayer);
             } else {
+                // Clear pronouns for the specified player
                 clearPronouns(targetPlayer, senderPlayer);
             }
         }
     }
 
+    // Helper method to get the sender player, returning null if not a player
     private Player getPlayerSender(Context context) {
         if (!(context.sender() instanceof Player)) {
             context.sender().sendMessage("You must be a player to use this command!");
@@ -45,14 +48,17 @@ public class SubCommandClear extends Command {
         return (Player) context.sender();
     }
 
-    private void clearPronouns(Player player, Player executor) {
-        Pronouns4J.getInstance().getPronounsManager().resetPronouns(player.getUniqueId().toString());
-        if (player.equals(executor)) {
-            Locale.CLEAR_SELF_PRONOUNS.send(player);
-        } else {
-            if (executor.hasPermission("pronouns4j.admin")) {
-                Locale.CLEAR_OTHER_PRONOUNS.replace("%player%", player.getName()).send(executor);
+    // Method to clear pronouns for a player
+    private void clearPronouns(Player targetPlayer, Player executor) {
+        Pronouns4J.getInstance().getPronounsManager().resetPronouns(targetPlayer.getUniqueId().toString());
+        // Notify the executor about the action
+        if (targetPlayer.equals(executor) || executor.hasPermission("pronouns4j.admin")) {
+            Locale.CLEAR_SELF_PRONOUNS.send(targetPlayer); // Inform the target player about pronouns being cleared
+            if (!targetPlayer.equals(executor)) {
+                Locale.CLEAR_OTHER_PRONOUNS.replace("%player%", targetPlayer.getName()).send(executor);
             }
+        } else {
+            Locale.NO_PERMISSION.send(executor); // Notify the executor about insufficient permission
         }
     }
 }
