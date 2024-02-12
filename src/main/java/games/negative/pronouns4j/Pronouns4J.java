@@ -8,6 +8,7 @@ import games.negative.alumina.sql.impl.SQLiteDatabase;
 import games.negative.pronouns4j.commands.CommandPronouns;
 import games.negative.pronouns4j.data.DataStorage;
 import games.negative.pronouns4j.data.SqlStorage;
+import games.negative.pronouns4j.data.SqliteStorage;
 import games.negative.pronouns4j.papi.PapiExpansion;
 import games.negative.pronouns4j.pronouns.Pronouns;
 import games.negative.pronouns4j.pronouns.PronounsManager;
@@ -40,21 +41,27 @@ public final class Pronouns4J extends AluminaPlugin {
     @SneakyThrows
     @Override
     public void load() {
+        // Load prequisites
         instance = this;
         saveDefaultConfig();
         getLogger().log(Level.INFO, "Pronouns4J loading...");
+
+        // Managers
         initializeDataStorage();
         this.pronounsManager = new PronounsManager(dataStorage, cache);
         Locale.init(this);
         registerCommands();
+
+        // PlaceholderAPI
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PapiExpansion(this).register();
             getLogger().log(Level.INFO, "Loaded placeholders into PlaceholderAPI!");
         } else {
             getLogger().log(Level.WARNING, "PlaceholderAPI not found! Placeholder expansion will not be registered.");
         }
-        getLogger().log(Level.INFO, "Pronouns4J has been loaded.");
 
+        // Finish loading
+        getLogger().log(Level.INFO, "Pronouns4J has been loaded.");
         Metrics metrics = new Metrics(this, 20982);
     }
 
@@ -66,7 +73,7 @@ public final class Pronouns4J extends AluminaPlugin {
             this.database = database;
         } else {
             SQLiteDatabase database = (SQLiteDatabase) initializeDatabase(false);
-            this.dataStorage = new SqlStorage(database);
+            this.dataStorage = new SqliteStorage(database);
             this.database = database;
         }
     }
