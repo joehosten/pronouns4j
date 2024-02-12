@@ -3,12 +3,14 @@ package games.negative.pronouns4j.commands;
 import games.negative.alumina.command.Command;
 import games.negative.alumina.command.CommandProperties;
 import games.negative.alumina.command.Context;
+import games.negative.alumina.command.TabContext;
 import games.negative.pronouns4j.Locale;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandPronouns extends Command {
     public CommandPronouns() {
-        super(CommandProperties.builder().name("pronouns").build());
+        super(CommandProperties.builder().name("pronouns").smartTabComplete(true).build());
+
 
         addSubCommand(new SubCommandSet());
         addSubCommand(new SubCommandClear());
@@ -19,4 +21,5 @@ public class CommandPronouns extends Command {
     public void execute(@NotNull Context context) {
         Locale.TITLE_HELP.send(context.sender());
     }
+
 }
