@@ -50,7 +50,9 @@ public class SubCommandClear extends Command {
         if (player.equals(executor)) {
             Locale.CLEAR_SELF_PRONOUNS.send(player);
         } else {
-            Locale.CLEAR_OTHER_PRONOUNS.replace("%player%", player.getName()).send(executor);
+            if (executor.hasPermission("pronouns4j.admin")) {
+                Locale.CLEAR_OTHER_PRONOUNS.replace("%player%", player.getName()).send(executor);
+            }
         }
     }
 }
