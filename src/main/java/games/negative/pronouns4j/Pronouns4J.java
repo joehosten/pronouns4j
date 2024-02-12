@@ -13,6 +13,7 @@ import games.negative.pronouns4j.pronouns.Pronouns;
 import games.negative.pronouns4j.pronouns.PronounsManager;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -54,6 +55,8 @@ public final class Pronouns4J extends AluminaPlugin {
             getLogger().log(Level.WARNING, "PlaceholderAPI not found! Placeholder expansion will not be registered.");
         }
         getLogger().log(Level.INFO, "Pronouns4J has been loaded.");
+
+        Metrics metrics = new Metrics(this, 20982);
     }
 
     private void initializeDataStorage() throws SQLException, IOException, ClassNotFoundException {
