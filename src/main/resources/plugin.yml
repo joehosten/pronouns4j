@@ -1,0 +1,8 @@
+name: Pronouns4J
+version: '${project.version}'
+main: games.negative.pronouns4j.Pronouns4J
+api-version: '1.20'
+author: "Joe Hosten"
+website: "https://joehosten.carrd.co/"
+depend: [PlaceholderAPI]
+database: true
