@@ -6,7 +6,7 @@
 
     <groupId>games.negative</groupId>
     <artifactId>Pronouns4J</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-beta.2</version>
     <packaging>jar</packaging>
 
     <name>Pronouns4J</name>
