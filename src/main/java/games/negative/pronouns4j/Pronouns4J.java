@@ -9,16 +9,16 @@ import games.negative.pronouns4j.commands.CommandPronouns;
 import games.negative.pronouns4j.data.DataStorage;
 import games.negative.pronouns4j.data.SqlStorage;
 import games.negative.pronouns4j.data.SqliteStorage;
+import games.negative.pronouns4j.listeners.PlayerLogListener;
+import games.negative.pronouns4j.metrics.Metrics;
 import games.negative.pronouns4j.papi.PapiExpansion;
 import games.negative.pronouns4j.pronouns.Pronouns;
 import games.negative.pronouns4j.pronouns.PronounsManager;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.awt.print.Paper;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -38,9 +38,13 @@ public final class Pronouns4J extends AluminaPlugin {
     private DataStorage dataStorage;
     private SQLDatabase database;
 
-    @SneakyThrows
     @Override
     public void load() {
+    }
+
+    @Override
+    @SneakyThrows
+    public void enable() {
         // Load prequisites
         instance = this;
         saveDefaultConfig();
@@ -62,7 +66,8 @@ public final class Pronouns4J extends AluminaPlugin {
 
         // Finish loading
         getLogger().log(Level.INFO, "Pronouns4J has been loaded.");
-        Metrics metrics = new Metrics(this, 20982);
+        new Metrics(this, 20982);
+        registerListeners(new PlayerLogListener(this));
     }
 
     private void initializeDataStorage() throws SQLException, IOException, ClassNotFoundException {
@@ -118,10 +123,7 @@ public final class Pronouns4J extends AluminaPlugin {
         registerCommand(new CommandPronouns());
     }
 
-    @Override
-    public void enable() {
-        // Implementation of enable method if needed
-    }
+
 
     @SneakyThrows
     @Override

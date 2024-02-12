@@ -29,6 +29,7 @@ public class SubCommandView extends Command {
                 .replace("%obj%", pronouns.getObjective())
                 .replace("%pos%", capitalizeFirstLetter(pronouns.getPossessive()))
                 .replace("%ref%", pronouns.getReflexive())
+                .replace("%pronouns%", pronouns.getSubjective() + "/" + pronouns.getObjective() + "/" + pronouns.getPossessive() + "/" + pronouns.getReflexive())
                 .send(player);
     }
 

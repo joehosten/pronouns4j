@@ -26,7 +26,7 @@ public class PapiExpansion extends PlaceholderExpansion {
     @Override
     @NotNull
     public String getIdentifier() {
-        return "Pronouns4j";
+        return "pronouns4j";
     }
 
     @Override
