@@ -36,14 +36,12 @@ public final class Pronouns4J extends AluminaPlugin {
     private PronounsManager pronounsManager;
     private DataStorage dataStorage;
     private SQLDatabase database;
-    private File config;
 
     @SneakyThrows
     @Override
     public void load() {
         instance = this;
         saveDefaultConfig();
-        this.config = new File(getDataFolder(), "config.yml");
         getLogger().log(Level.INFO, "Pronouns4J loading...");
         initializeDataStorage();
         this.pronounsManager = new PronounsManager(dataStorage, cache);
