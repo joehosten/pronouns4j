@@ -49,6 +49,7 @@ public final class Pronouns4J extends AluminaPlugin {
         registerCommands();
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PapiExpansion(this).register();
+            getLogger().log(Level.INFO, "Loaded placeholders into PlaceholderAPI!");
         } else {
             getLogger().log(Level.WARNING, "PlaceholderAPI not found! Placeholder expansion will not be registered.");
         }

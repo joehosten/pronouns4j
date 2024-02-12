@@ -3,8 +3,11 @@ package games.negative.pronouns4j.papi;
 import games.negative.pronouns4j.Pronouns4J;
 import games.negative.pronouns4j.pronouns.Pronouns;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.logging.Level;
 
 public class PapiExpansion extends PlaceholderExpansion {
 
@@ -23,7 +26,7 @@ public class PapiExpansion extends PlaceholderExpansion {
     @Override
     @NotNull
     public String getIdentifier() {
-        return "pronouns4j";
+        return "Pronouns4j";
     }
 
     @Override
@@ -39,6 +42,13 @@ public class PapiExpansion extends PlaceholderExpansion {
 
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String params) {
+
+        if (player == null) {
+            Bukkit.getLogger().log(Level.WARNING, "Failed to parse placeholder because player cannot be null! Using default pronouns (they/them)");
+
+            return "they/them";
+        }
+
         Pronouns pronouns = plugin.getPronounsManager().getPronouns(player.getUniqueId().toString());
         switch (params) {
             // standard placeholders
