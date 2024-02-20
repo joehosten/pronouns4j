@@ -67,7 +67,8 @@ public final class Pronouns4J extends AluminaPlugin {
 
         // Finish loading
         getLogger().log(Level.INFO, "Pronouns4J has been loaded.");
-        new Metrics(this, 20982);
+        if(getConfig().getBoolean("metrics"))
+            new Metrics(this, 20982);
 
         if(Bukkit.getPluginManager().isPluginEnabled("EssentialsChat")) {
             getLogger().log(Level.INFO, "EssentialsChat found! Hooking into it.");

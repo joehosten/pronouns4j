@@ -11,7 +11,6 @@ public class CommandPronouns extends Command {
     public CommandPronouns() {
         super(CommandProperties.builder().name("pronouns").smartTabComplete(true).build());
 
-
         addSubCommand(new SubCommandSet());
         addSubCommand(new SubCommandClear());
         addSubCommand(new SubCommandView());
