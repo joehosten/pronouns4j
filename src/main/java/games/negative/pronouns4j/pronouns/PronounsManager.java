@@ -6,13 +6,13 @@ import org.bukkit.Bukkit;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 public class PronounsManager {
     private final DataStorage database;
     private final Map<String, Pronouns> pronounsMap;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
 
     public PronounsManager(DataStorage database, Map<String, Pronouns> pronounsMap) {
         this.database = database;
@@ -22,7 +22,7 @@ public class PronounsManager {
     }
 
     private void startDatabaseSave() {
-        scheduler.scheduleAtFixedRate(this::databaseSaveTask, 0, 5, java.util.concurrent.TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(this::databaseSaveTask, 0, 5, TimeUnit.MINUTES);
     }
 
     public void databaseSaveTask() {
@@ -30,8 +30,9 @@ public class PronounsManager {
     }
 
     public void resetPronouns(String uuid) {
-        pronounsMap.replace(uuid, new Pronouns("they", "them", "their", "themself"));
-        database.savePronouns(uuid, new Pronouns("they", "them", "their", "themself"));
+        Pronouns defaultPronouns = new Pronouns("they", "them", "their", "themself");
+        pronounsMap.put(uuid, defaultPronouns);
+        database.savePronouns(uuid, defaultPronouns);
     }
 
     public Pronouns loadPronouns(String uuid) {
@@ -40,10 +41,9 @@ public class PronounsManager {
             pronounsMap.put(uuid, pronouns);
             return pronouns;
         } catch (Exception e) {
-            Bukkit.getLogger().log(Level.SEVERE, "An error occurred while loading pronouns for " + uuid);
-            e.printStackTrace();
+            Bukkit.getLogger().log(Level.SEVERE, "An error occurred while loading pronouns for " + uuid, e);
+            return null;
         }
-        return null;
     }
 
     public Pronouns getPronouns(String uuid) {
@@ -51,15 +51,10 @@ public class PronounsManager {
     }
 
     public void savePronouns(String uuid, Pronouns pronouns) {
-        if(pronounsMap.containsKey(uuid)) {
-            pronounsMap.replace(uuid, pronouns);
-        } else {
-            pronounsMap.put(uuid, pronouns);
-        }
+        pronounsMap.put(uuid, pronouns);
     }
 
     public void savePronounsToStorage(String uuid, Pronouns pronouns) {
         database.savePronouns(uuid, pronouns);
-        ;
     }
 }

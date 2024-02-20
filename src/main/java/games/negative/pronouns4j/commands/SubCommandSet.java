@@ -6,7 +6,6 @@ import games.negative.alumina.command.Context;
 import games.negative.pronouns4j.Locale;
 import games.negative.pronouns4j.Pronouns4J;
 import games.negative.pronouns4j.pronouns.Pronouns;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,9 +25,13 @@ public class SubCommandSet extends Command {
 
     @Override
     public void execute(@NotNull Context context) {
-
-        Player player = (Player) context.sender();
+        Player player = context.player().orElseThrow();
         String[] args = context.args();
+
+        if (args.length != 4) {
+            Locale.INVALID_ARGUMENTS.send(player);
+            return;
+        }
 
         String subjective = args[0];
         String objective = args[1];

@@ -46,18 +46,15 @@ public final class Pronouns4J extends AluminaPlugin {
     @Override
     @SneakyThrows
     public void enable() {
-        // Load prequisites
         instance = this;
         saveDefaultConfig();
         getLogger().log(Level.INFO, "Pronouns4J loading...");
 
-        // Managers
         initializeDataStorage();
-        this.pronounsManager = new PronounsManager(dataStorage, cache);
+        pronounsManager = new PronounsManager(dataStorage, cache);
         Locale.init(this);
         registerCommands();
 
-        // PlaceholderAPI
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PapiExpansion(this).register();
             getLogger().log(Level.INFO, "PlaceholderAPI found! Hooking into it.");
@@ -65,12 +62,12 @@ public final class Pronouns4J extends AluminaPlugin {
             getLogger().log(Level.WARNING, "PlaceholderAPI not found! Placeholder expansion will not be registered.");
         }
 
-        // Finish loading
         getLogger().log(Level.INFO, "Pronouns4J has been loaded.");
-        if(getConfig().getBoolean("metrics"))
+
+        if (getConfig().getBoolean("metrics"))
             new Metrics(this, 20982);
 
-        if(Bukkit.getPluginManager().isPluginEnabled("EssentialsChat")) {
+        if (Bukkit.getPluginManager().isPluginEnabled("EssentialsChat")) {
             getLogger().log(Level.INFO, "EssentialsChat found! Hooking into it.");
             registerListeners(new ChatListener(this));
         }
@@ -81,11 +78,11 @@ public final class Pronouns4J extends AluminaPlugin {
         boolean sql = getConfig().getBoolean("sql.enabled");
         if (sql) {
             SQLDatabase database = (SQLDatabase) initializeDatabase(true);
-            this.dataStorage = new SqlStorage(database);
+            dataStorage = new SqlStorage(database);
             this.database = database;
         } else {
             SQLiteDatabase database = (SQLiteDatabase) initializeDatabase(false);
-            this.dataStorage = new SqliteStorage(database);
+            dataStorage = new SqliteStorage(database);
             this.database = database;
         }
     }
@@ -102,21 +99,14 @@ public final class Pronouns4J extends AluminaPlugin {
     }
 
     private void createSQLiteDatabase() {
-        // Get the data folder of the plugin
         File dataFolder = getDataFolder();
-
-        // Ensure the data folder exists
-        if (!dataFolder.exists()) {
+        if (!dataFolder.exists())
             dataFolder.mkdirs();
-        }
 
-        // Construct the path to the SQLite database file
         String databasePath = dataFolder.getAbsolutePath() + File.separator + "database.db";
         Path path = Paths.get(databasePath);
 
-        // Check if the database file exists
         if (!Files.exists(path)) {
-            // If the file doesn't exist, create a new one
             try {
                 Files.createFile(path);
                 getLogger().info("SQLite database file created successfully.");
@@ -129,8 +119,6 @@ public final class Pronouns4J extends AluminaPlugin {
     private void registerCommands() {
         registerCommand(new CommandPronouns());
     }
-
-
 
     @SneakyThrows
     @Override

@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import games.negative.alumina.sql.impl.SQLiteDatabase;
 import games.negative.pronouns4j.pronouns.Pronouns;
 
-import java.sql.*;
-
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
