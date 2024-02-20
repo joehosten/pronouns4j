@@ -4,7 +4,7 @@ main: games.negative.pronouns4j.Pronouns4J
 api-version: '1.20'
 author: "Joe Hosten"
 website: "https://joehosten.carrd.co/"
-depend: [PlaceholderAPI]
+depend: [ PlaceholderAPI ]
 prefix: "Pronouns4J"
 softdepend:
   - EssentialsChat

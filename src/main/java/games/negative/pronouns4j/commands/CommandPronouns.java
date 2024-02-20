@@ -3,7 +3,6 @@ package games.negative.pronouns4j.commands;
 import games.negative.alumina.command.Command;
 import games.negative.alumina.command.CommandProperties;
 import games.negative.alumina.command.Context;
-import games.negative.alumina.command.TabContext;
 import games.negative.pronouns4j.Locale;
 import org.jetbrains.annotations.NotNull;
 
