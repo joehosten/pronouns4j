@@ -18,12 +18,12 @@ public class ChatListener implements Listener {
         this.plugin = plugin;
     }
 
+    // Use of deprecation as new AsyncChatEvent does not have capabilities to change the format
     @EventHandler
     @SuppressWarnings("deprecation")
     public void onChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         String format = e.getFormat();
-        System.out.println(format);
 
         String subject = plugin.getPronounsManager().getPronouns(p.getUniqueId().toString()).getSubjective();
         String objective = plugin.getPronounsManager().getPronouns(p.getUniqueId().toString()).getObjective();

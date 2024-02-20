@@ -5,3 +5,4 @@ sql:
   username: root
   password: root
   database: default
+metrics: true
