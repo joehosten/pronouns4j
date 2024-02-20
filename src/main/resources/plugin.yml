@@ -6,3 +6,5 @@ author: "Joe Hosten"
 website: "https://joehosten.carrd.co/"
 depend: [PlaceholderAPI]
 prefix: "Pronouns4J"
+softdepend:
+  - EssentialsChat

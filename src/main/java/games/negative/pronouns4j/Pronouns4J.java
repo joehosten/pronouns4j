@@ -9,6 +9,7 @@ import games.negative.pronouns4j.commands.CommandPronouns;
 import games.negative.pronouns4j.data.DataStorage;
 import games.negative.pronouns4j.data.SqlStorage;
 import games.negative.pronouns4j.data.SqliteStorage;
+import games.negative.pronouns4j.listeners.ChatListener;
 import games.negative.pronouns4j.listeners.PlayerLogListener;
 import games.negative.pronouns4j.metrics.Metrics;
 import games.negative.pronouns4j.papi.PapiExpansion;
@@ -59,7 +60,7 @@ public final class Pronouns4J extends AluminaPlugin {
         // PlaceholderAPI
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PapiExpansion(this).register();
-            getLogger().log(Level.INFO, "Loaded placeholders into PlaceholderAPI!");
+            getLogger().log(Level.INFO, "PlaceholderAPI found! Hooking into it.");
         } else {
             getLogger().log(Level.WARNING, "PlaceholderAPI not found! Placeholder expansion will not be registered.");
         }
@@ -67,6 +68,11 @@ public final class Pronouns4J extends AluminaPlugin {
         // Finish loading
         getLogger().log(Level.INFO, "Pronouns4J has been loaded.");
         new Metrics(this, 20982);
+
+        if(Bukkit.getPluginManager().isPluginEnabled("EssentialsChat")) {
+            getLogger().log(Level.INFO, "EssentialsChat found! Hooking into it.");
+            registerListeners(new ChatListener(this));
+        }
         registerListeners(new PlayerLogListener(this));
     }
 
@@ -130,6 +136,5 @@ public final class Pronouns4J extends AluminaPlugin {
     public void disable() {
         pronounsManager.databaseSaveTask();
         database.disconnect();
-
     }
 }
