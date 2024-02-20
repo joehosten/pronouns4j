@@ -30,7 +30,7 @@ public class PronounsManager {
     }
 
     public void resetPronouns(String uuid) {
-        pronounsMap.remove(uuid);
+        pronounsMap.replace(uuid, new Pronouns("they", "them", "their", "themself"));
         database.savePronouns(uuid, new Pronouns("they", "them", "their", "themself"));
     }
 
@@ -51,7 +51,15 @@ public class PronounsManager {
     }
 
     public void savePronouns(String uuid, Pronouns pronouns) {
-        pronounsMap.put(uuid, pronouns);
+        if(pronounsMap.containsKey(uuid)) {
+            pronounsMap.replace(uuid, pronouns);
+        } else {
+            pronounsMap.put(uuid, pronouns);
+        }
+    }
+
+    public void savePronounsToStorage(String uuid, Pronouns pronouns) {
+        database.savePronouns(uuid, pronouns);
         ;
     }
 }

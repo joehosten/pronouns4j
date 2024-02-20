@@ -26,7 +26,7 @@ public class PlayerLogListener implements Listener {
         // Load pronouns if they exist, otherwise save default pronouns
         Pronouns pronouns = pronounsManager.loadPronouns(uuid);
         if (pronouns == null) {
-            pronouns = new Pronouns("they", "them", "there's", "themself");
+            pronouns = new Pronouns("they", "them", "their", "themself");
             pronounsManager.savePronouns(uuid, pronouns);
         } else {
             pronounsManager.savePronouns(uuid, pronouns); // Save loaded pronouns again to ensure they're up-to-date
@@ -37,6 +37,6 @@ public class PlayerLogListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         String uuid = player.getUniqueId().toString();
-        plugin.getPronounsManager().savePronouns(uuid, plugin.getPronounsManager().getPronouns(uuid));
+        plugin.getPronounsManager().savePronounsToStorage(uuid, plugin.getPronounsManager().getPronouns(uuid));
     }
 }
