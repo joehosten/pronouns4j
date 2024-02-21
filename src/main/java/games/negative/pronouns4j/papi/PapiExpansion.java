@@ -72,7 +72,7 @@ public class PapiExpansion extends PlaceholderExpansion {
             case "reflexive_capital":
                 return capitalizeFirstLetter(getPronounByType(pronouns, params.substring(0, params.lastIndexOf("_"))));
             case "pronouns_capital":
-                return capitalizeFirstLetter(formatPronouns(pronouns));
+                return formatPronounsCapital(pronouns);
             default:
                 return null;
         }
@@ -95,6 +95,10 @@ public class PapiExpansion extends PlaceholderExpansion {
 
     private String formatPronouns(Pronouns pronouns) {
         return pronouns.getSubjective() + "/" + pronouns.getObjective() + "/" + pronouns.getPossessive();
+    }
+
+    private String formatPronounsCapital(Pronouns pronouns) {
+        return capitalizeFirstLetter(pronouns.getSubjective()) + "/" + capitalizeFirstLetter(pronouns.getObjective()) + "/" + capitalizeFirstLetter(pronouns.getPossessive());
     }
 
     private String capitalizeFirstLetter(String str) {
