@@ -48,7 +48,7 @@ public final class Pronouns4J extends AluminaPlugin {
     public void enable() {
         instance = this;
         saveDefaultConfig();
-        getLogger().log(Level.INFO, "Pronouns4J loading...");
+        getLogger().log(Level.INFO, "Pronouns4J loading..");
 
         initializeDataStorage();
         pronounsManager = new PronounsManager(dataStorage, cache);
