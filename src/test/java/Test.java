@@ -10,8 +10,8 @@ public class Test {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
 
-        DataStorage storage = new SqlStorage(SQLDatabases.mysql(new SQLCredentials("mysql-244362c3-project-ff19.a.aivencloud.com"
-                , 24354, "defaultdb", "avnadmin", "AVNS_Zc-vcW3goK-JGDZRgf3")));
+        DataStorage storage = new SqlStorage(SQLDatabases.mysql(new SQLCredentials(""
+                , 0, "", "", "")));
 
         Pronouns pronouns = new Pronouns("he", "him", "him", "himself");
 
